@@ -1,0 +1,36 @@
+function nextGap(gap)
+{
+if (gap <= 1)
+return 0;
+return Math.floor(Math.ceil(gap / 2.0));
+}
+function swap(nums,i,j)
+{
+let temp = nums[i];
+nums[i] = nums[j];
+nums[j] = temp;
+}
+function inPlaceMerge(nums,start,end)
+{
+let gap = end - start + 1;
+for (gap = nextGap(gap); gap > 0;
+gap = nextGap(gap)) {
+for (let i = start; i + gap <= end; i++) {
+let j = i + gap;
+if (nums[i] > nums[j])
+swap(nums, i, j);
+}
+}
+}
+function mergeSort(nums,s,e)
+{
+if (s == e)
+return;
+let mid = Math.floor((s + e) / 2);
+mergeSort(nums, s, mid);
+mergeSort(nums, mid + 1, e);
+inPlaceMerge(nums, s, e);
+}
+let nums=[12, 21, 23, 5, 16, 7 ];
+mergeSort(nums, 0, nums.length - 1);
+console.log((nums).join(" "));
